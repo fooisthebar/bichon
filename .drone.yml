@@ -1,0 +1,5 @@
+pipeline:
+  test:
+    image: alpine:3.5
+    commands:
+      - env
