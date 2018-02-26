@@ -1,5 +1,9 @@
 pipeline:
   test:
-    image: alpine:3.5
+    image: golang:1.8.3-alpine
     commands:
-      - env
+      - go test ./...
+  build:
+    image: docker:latest
+    commands:
+      - docker build . -t bichon:${DRONE_COMMIT}
