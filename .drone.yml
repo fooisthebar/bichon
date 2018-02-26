@@ -6,8 +6,10 @@ pipeline:
   build:
     image: docker:dind
     commands:
-      - docker build . -t bichon:${DRONE_COMMIT}
-      - docker push quay.io/jibek_charette/bichon:${DRONE_COMMIT}
+      - docker build . -t quay.io/jibek_charette/bichon:${DRONE_COMMIT}
+      # - docker push quay.io/jibek_charette/bichon:${DRONE_COMMIT}
+      - docker login -u=$QUAY_NAME -p=$QUAY_TOKEN quay.io && docker push quay.io/jibek_charette/bichon:${DRONE_COMMIT}
+    secrets: [ quay_name, quay_token ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
