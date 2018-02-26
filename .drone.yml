@@ -4,6 +4,10 @@ pipeline:
     commands:
       - go test ./...
   build:
-    image: docker:latest
+    image: docker:dind
     commands:
       - docker build . -t bichon:${DRONE_COMMIT}
+      - docker push quay.io/jibek_charette/bichon:${DRONE_COMMIT}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
