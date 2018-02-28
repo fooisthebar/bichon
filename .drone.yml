@@ -12,7 +12,7 @@ pipeline:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   private-image:
-    image: charrettetmp/golang:latest
+    image:  charrettetmp/golang:latest
     commands:
       - echo "CA MARCHE :D"
 
