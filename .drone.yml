@@ -1,18 +1,24 @@
 pipeline:
-  test:
+  environment-checker:
     image: golang:1.8.3-alpine
     commands:
-      - go test ./...
-  build:
-    image: docker:dind
-    commands:
-      - docker build . -t quay.io/jibek_charette/bichon:${DRONE_COMMIT}
-      - docker login -u=$QUAY_NAME -p=$QUAY_TOKEN quay.io && docker push quay.io/jibek_charette/bichon:${DRONE_COMMIT}
-    secrets: [ quay_name, quay_token ]
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-  private-image:
-    image:  charrettetmp/golang:latest
-    commands:
-      - echo "CA MARCHE :D"
+      - echo $DRONE_BRANCH
+      - echo $DRONE_REPO_BRANCH
+      - echo $DRONE_COMMIT_BRANCH
+  # test:
+  #   image: golang:1.8.3-alpine
+  #   commands:
+  #     - go test ./...
+  # build:
+  #   image: docker:dind
+  #   commands:
+  #     - docker build . -t quay.io/jibek_charette/bichon:${DRONE_COMMIT}
+  #     - docker login -u=$QUAY_NAME -p=$QUAY_TOKEN quay.io && docker push quay.io/jibek_charette/bichon:${DRONE_COMMIT}
+  #   secrets: [ quay_name, quay_token ]
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  # private-image:
+  #   image:  charrettetmp/golang:latest
+  #   commands:
+  #     - echo "CA MARCHE :D"
 
