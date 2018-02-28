@@ -11,8 +11,8 @@ pipeline:
     secrets: [ quay_name, quay_token ]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-  yo:
-    image: quay.io/jibek_charette/golang
+  private-image:
+    image: charrettetmp/golang:latest
     commands:
       - echo "CA MARCHE :D"
 
