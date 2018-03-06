@@ -1,21 +1,28 @@
 pipeline:
+  # clone:
+  #   image: plugins/git
+  #   commands:
+  #   - git fetch 2&> /dev/null
+  #   - git checkout ${DRONE_COMMIT_SHA} 2&> /dev/null
   environment-checker:
     image: alpine
     commands:
-      - echo $DRONE_BRANCH
-      - echo $DRONE_REPO_BRANCH
-      - echo $DRONE_COMMIT_BRANCH
+    - echo $DRONE_BRANCH
+    - echo $DRONE_REPO_BRANCH
+    - echo $DRONE_COMMIT_BRANCH
+    - echo $DRONE_COMMIT_REF
+    - env
   merge:
     image: plugins/git
     commands:
-      - git diff --name-only "$DRONE_COMMIT_SHA^!"
+    - git diff --name-only $DRONE_COMMIT_SHA^!
     when:
       event: push
       branch: master
   pull_request:
     image: plugins/git
     commands:
-      - git diff --name-only "master...$DRONE_COMMIT_SHA"
+    - git diff --name-only a485a6535fabff45784c497140c28b5c5dc326d8...$DRONE_COMMIT_SHA
     when:
       event: pull_request
   # test:
